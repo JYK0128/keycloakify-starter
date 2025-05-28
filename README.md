@@ -1,58 +1,48 @@
-<p align="center">
-    <i>🚀 <a href="https://keycloakify.dev">Keycloakify</a> v11 starter 🚀</i>
-    <br/>
-    <br/>
-</p>
+<!-- 주요 명령어 -->
+npx keycloakify add-story
+npx keycloakify eject-page
 
-# Quick start
+<!-- 개발 -->
+yarn storybook
 
-```bash
-git clone https://github.com/keycloakify/keycloakify-starter
-cd keycloakify-starter
-yarn install # Or use an other package manager, just be sure to delete the yarn.lock if you use another package manager.
-```
+<!-- 빌드 -->
+yarn build-keycloak-theme
+docker build -t my-keycloak .
 
-# Testing the theme locally
+<!-- 실행(컴포즈) -->
+docker-compose up -d    (백실행)
+docker-compose logs -f  (로그)
+docker-compose down     (종료)
 
-[Documentation](https://docs.keycloakify.dev/testing-your-theme)
+<!-- 실행 -->
+docker run -d --rm -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin -v "${PWD}/dist_keycloak/keycloak-theme-for-kc-all-other-versions.jar":/opt/keycloak/providers/keycloak-theme.jar my-keycloak:latest start-dev
 
-# How to customize the theme
+<!-- 실행(콘솔) -->
+docker run --rm -ti -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin -v "${PWD}/dist_keycloak/keycloak-theme-for-kc-all-other-versions.jar":/opt/keycloak/providers/keycloak-theme.jar my-keycloak:latest start-dev
 
-[Documentation](https://docs.keycloakify.dev/customization-strategies)
+<!-- 구현 정보 -->
+// keyclock all configs - 도커 빌드 시 사용
+<https://www.keycloak.org/server/all-config>
 
-# Building the theme
+// 이메일 스코프
+<https://developers.google.com/oauthplayground/>
 
-You need to have [Maven](https://maven.apache.org/) installed to build the theme (Maven >= 3.1.1, Java >= 7).  
-The `mvn` command must be in the $PATH.
+// google auth console
+<https://console.cloud.google.com/apis/credentials>
 
--   On macOS: `brew install maven`
--   On Debian/Ubuntu: `sudo apt-get install maven`
--   On Windows: `choco install openjdk` and `choco install maven` (Or download from [here](https://maven.apache.org/download.cgi))
+// google apppasswords - XOauth2 미지원
+<https://myaccount.google.com/apppasswords>
 
-```bash
-npm run build-keycloak-theme
-```
+// recapcha
 
-Note that by default Keycloakify generates multiple .jar files for different versions of Keycloak.  
-You can customize this behavior, see documentation [here](https://docs.keycloakify.dev/targeting-specific-keycloak-versions).
+- iframe 설정 header
+- X-Frame-Options:  
+=> SAMEORIGIN
+=> ALLOW-FROM <https://www.google.com>
 
-# Initializing the account theme
+- frames-*
+=> frame-src 'self'; frame-ancestors 'self'; object-src 'none';
+=> frame-src 'self' <https://www.google.com/>
 
-```bash
-npx keycloakify initialize-account-theme
-```
-
-# Initializing the email theme
-
-```bash
-npx keycloakify initialize-email-theme
-```
-
-# GitHub Actions
-
-The starter comes with a generic GitHub Actions workflow that builds the theme and publishes
-the jars [as GitHub releases artifacts](https://github.com/keycloakify/keycloakify-starter/releases/tag/v10.0.0).  
-To release a new version **just update the `package.json` version and push**.
-
-To enable the workflow go to your fork of this repository on GitHub then navigate to:
-`Settings` > `Actions` > `Workflow permissions`, select `Read and write permissions`.
+// git 커밋 재정리
+git reset --soft HEAD~n
