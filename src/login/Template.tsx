@@ -95,33 +95,34 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                   </div>
                 )}
             </CardTitle>
-            <CardDescription />
+            <CardDescription>
+              {displayMessage && message !== undefined && (message.type !== 'warning' || !isAppInitiatedAction) && (
+                <Alert
+                  variant={({
+                    error: 'destructive',
+                    warning: 'warning',
+                    success: 'success',
+                    info: 'info',
+                  } as const)[message.type]}
+                >
+                  {({
+                    error: <CircleX />,
+                    warning: <TriangleAlert />,
+                    success: <CircleCheckBig />,
+                    info: <Info />,
+                  } as const)[message.type]}
+
+                  <AlertDescription
+                    dangerouslySetInnerHTML={{
+                      __html: kcSanitize(message.summary),
+                    }}
+                  />
+                </Alert>
+              )}
+
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            {displayMessage && message !== undefined && (message.type !== 'warning' || !isAppInitiatedAction) && (
-              <Alert
-                variant={({
-                  error: 'destructive',
-                  warning: 'warning',
-                  success: 'success',
-                  info: 'info',
-                } as const)[message.type]}
-              >
-                {({
-                  error: <CircleX />,
-                  warning: <TriangleAlert />,
-                  success: <CircleCheckBig />,
-                  info: <Info />,
-                } as const)[message.type]}
-
-                <AlertDescription
-                  dangerouslySetInnerHTML={{
-                    __html: kcSanitize(message.summary),
-                  }}
-                />
-              </Alert>
-            )}
-
             {children}
 
             {auth !== undefined && auth.showTryAnotherWayLink && (
@@ -145,7 +146,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
           <CardFooter className="flex flex-col items-center">
             {socialProvidersNode}
             {displayInfo && (
-              <div>{infoNode}</div>
+              <>{infoNode}</>
             )}
           </CardFooter>
         </Card>
