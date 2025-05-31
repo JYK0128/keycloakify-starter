@@ -11,6 +11,7 @@ docker build -t my-keycloak .
 
 <!-- 실행(컴포즈) -->
 docker-compose up -d    (백실행)
+docker-compose up -d --build    (갱신 & 백실행)
 docker-compose logs -f  (로그)
 docker-compose down     (종료)
 

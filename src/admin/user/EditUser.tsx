@@ -123,6 +123,8 @@ export default function EditUser() {
         throw new Error(t('notFound'));
       }
 
+      console.log({ userData });
+
       const { userProfileMetadata, ...user } = userData;
       setUserProfileMetadata(userProfileMetadata);
       user.unmanagedAttributes = unmanagedAttributes;
@@ -369,14 +371,16 @@ export default function EditUser() {
               >
                 <UserCredentials user={user} setUser={setUser} />
               </Tab>
-              <Tab
-                data-testid="role-mapping-tab"
-                isHidden={!user.access?.view}
-                title={<TabTitleText>{t('roleMapping')}</TabTitleText>}
-                {...roleMappingTab}
-              >
-                <UserRoleMapping id={user.id!} name={user.username!} />
-              </Tab>
+              {hasAccess('query-groups') && (
+                <Tab
+                  data-testid="role-mapping-tab"
+                  isHidden={!user.access?.view}
+                  title={<TabTitleText>{t('roleMapping')}</TabTitleText>}
+                  {...roleMappingTab}
+                >
+                  <UserRoleMapping id={user.id!} name={user.username!} />
+                </Tab>
+              )}
               {hasAccess('query-groups') && (
                 <Tab
                   data-testid="user-groups-tab"
