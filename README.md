@@ -36,7 +36,7 @@ docker run --rm -ti -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOT
 
 // recapcha
 
-- iframe 설정 header
+- iframe 설정 header => realm settings => security defenses
 - X-Frame-Options:  
 => SAMEORIGIN
 => ALLOW-FROM <https://www.google.com>
