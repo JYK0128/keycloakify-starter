@@ -8,6 +8,8 @@
   },
   "type": "module",
   "scripts": {
+    "compose:dev": "docker compose --env-file .env.development up -d",
+    "compose:prd": "docker compose --env-file .env.production up -d",
     "postinstall": "keycloakify sync-extensions",
     "dev": "vite",
     "build": "tsc && vite build",
