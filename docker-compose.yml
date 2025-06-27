@@ -9,7 +9,7 @@ services:
 
     environment:
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
-      KC_HTTP_ENABLED: true
+      KC_PROXY_HEADERS: xforwarded
       KC_HEALTH_ENABLED: true
       
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
