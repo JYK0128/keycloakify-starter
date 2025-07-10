@@ -7,6 +7,9 @@ yarn storybook
 
 <!-- 빌드 -->
 yarn build-keycloak-theme
+yarn compose:{mode}
+
+yarn build-keycloak-theme
 docker build -t my-keycloak .
 
 <!-- 실행(컴포즈) -->
