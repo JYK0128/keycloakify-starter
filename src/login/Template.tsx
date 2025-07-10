@@ -62,6 +62,12 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
               {enabledLanguages.length > 1 && (
                 <Select
                   defaultValue={currentLanguage.languageTag}
+                  onValueChange={(v) => {
+                    const lang = enabledLanguages.find((lang) => lang.languageTag === v);
+                    if (lang) {
+                      location.href = lang.href;
+                    }
+                  }}
                 >
                   <SelectTrigger className="w-[150px]">
                     <SelectValue />
